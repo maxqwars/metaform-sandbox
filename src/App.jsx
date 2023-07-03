@@ -1,4 +1,3 @@
-import "bootstrap/dist/css/bootstrap.min.css";
 import SandboxNavbar from "./components/SandboxNavbar";
 import ApiSelector from "./components/ApiSelector";
 import ErrorsAccordion from "./components/ErrorsAccordion";
