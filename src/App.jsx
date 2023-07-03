@@ -17,6 +17,7 @@ import { SandboxCore } from "./models/SandboxCore";
 // import { JsonViewer } from "@textea/json-viewer";
 import JSONInput from "react-json-editor-ajrm";
 import locale from "react-json-editor-ajrm/locale/en";
+import prefersColorSchemeIsDark from "./functions/prefersColorSchemeIsDark";
 
 const core = new SandboxCore();
 
@@ -34,7 +35,7 @@ function App() {
   const [methodKey, setMethodKey] = useState(null);
   const [requestParams, setRequestParams] = useState(null);
 
-  console.log(loading);
+  console.log(`Use dark UI? ${prefersColorSchemeIsDark}`);
 
   const onRequestParamsEditorBlur = (data) => {
     const { jsObject } = data;
