@@ -12,7 +12,7 @@ function SandboxNavbar() {
             <a
               target="_blank"
               rel="noreferrer"
-              href="https://github.com/maxqwars/metaform"
+              href="https://github.com/maxqwars/metaform-sandbox"
             >
               GitHub
             </a>
