@@ -10,16 +10,15 @@ import {
   Col,
   Spinner,
 } from "react-bootstrap";
-import { RefreshCw } from "react-feather";
+import { RefreshCw, Sun, Moon } from "react-feather";
 import { useState, useEffect } from "react";
 import { SandboxCore } from "./models/SandboxCore";
-// import { JsonViewer } from "@textea/json-viewer";
 import JSONInput from "react-json-editor-ajrm";
 import locale from "react-json-editor-ajrm/locale/en";
 import prefersColorSchemeIsDark from "./functions/prefersColorSchemeIsDark";
+import useBodyTheme from "./hooks/useBodyTheme";
 
 const core = new SandboxCore();
-const bsColorScheme = prefersColorSchemeIsDark() ? "dark" : "light";
 
 function Loader() {
   return (
@@ -34,8 +33,25 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [methodKey, setMethodKey] = useState(null);
   const [requestParams, setRequestParams] = useState(null);
+  const [darkTheme, setDarkTheme] = useState(prefersColorSchemeIsDark());
+  const [jsonInputTheme, setJsonInputTheme] = useState(
+    "light_mitsuketa_tribute"
+  );
 
-  console.log(`Use dark UI? ${prefersColorSchemeIsDark}`);
+  useBodyTheme(darkTheme);
+
+  console.log(`Enable dark theme: ${darkTheme}`);
+  console.log(`JSONInput theme: ${jsonInputTheme}`);
+
+  const onThemeChange = () => {
+    setDarkTheme(!darkTheme);
+    setResponse(response);
+    setRequestParams(requestParams);
+    setJsonInputTheme(
+      darkTheme ? "dark_vscode_tribute" : "light_mitsuketa_tribute"
+    );
+    return;
+  };
 
   const onRequestParamsEditorBlur = (data) => {
     const { jsObject } = data;
@@ -46,6 +62,9 @@ function App() {
 
   const onSelect = (event) => {
     setMethodKey(event.target.value);
+    setJsonInputTheme(
+      darkTheme ? "dark_vscode_tribute" : "light_mitsuketa_tribute"
+    );
     setResponse(null);
     setLoading(true);
     setRequestParams(null);
@@ -82,16 +101,26 @@ function App() {
   return (
     <>
       {/* Navabar */}
-      <SandboxNavbar bsColorScheme={bsColorScheme} />
+      <SandboxNavbar darkTheme={darkTheme} />
 
       {/* API selector */}
       <div className="my-2">
         <Container>
           <Form>
             <Stack direction="horizontal" gap={1}>
-              <ApiSelector methods={core.apiMethodsKeys} onSelect={onSelect} />
+              <ApiSelector
+                methods={core.apiMethodsKeys}
+                onSelect={onSelect}
+                darkTheme={darkTheme}
+              />
               <Button onClick={onRefresh}>
                 <RefreshCw />
+              </Button>
+              <Button
+                variant={darkTheme ? "dark" : "light"}
+                onClick={onThemeChange}
+              >
+                {darkTheme ? <Sun /> : <Moon />}
               </Button>
             </Stack>
           </Form>
@@ -118,29 +147,30 @@ function App() {
                     <Loader />
                   ) : (
                     <JSONInput
-                      id="a_unique_id"
+                      id="request-editor"
                       placeholder={requestParams ? requestParams : {}}
                       locale={locale}
                       height="200px"
                       width="100%"
                       onBlur={onRequestParamsEditorBlur}
+                      theme={jsonInputTheme}
                     />
                   )}
                 </div>
 
                 <div className="mt-2">
                   <h4>Response viewer</h4>
-                  {/* <JsonViewer value={response ? response : {}} /> */}
                   {loading ? (
                     <Loader />
                   ) : (
                     <JSONInput
-                      id="a_unique_id"
+                      id="response-viewer"
                       placeholder={response ? response : {}}
                       locale={locale}
                       height="270px"
                       width="100%"
                       onBlur={onRequestParamsEditorBlur}
+                      theme={jsonInputTheme}
                     />
                   )}
                 </div>

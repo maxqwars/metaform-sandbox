@@ -1,12 +1,15 @@
 import { Navbar, Container } from "react-bootstrap";
 
-function SandboxNavbar({ bsColorScheme = "light" }) {
+// eslint-disable-next-line react/prop-types
+function SandboxNavbar({ darkTheme = false }) {
+  const theme = darkTheme ? "dark" : "light";
+
   return (
     <Navbar
-      bg={bsColorScheme}
+      bg={theme}
       className="border-bottom"
-      data-bs-theme={bsColorScheme}
-      variant={bsColorScheme}
+      data-bs-theme={theme}
+      variant={theme}
     >
       <Container>
         <Navbar.Brand href="#home">Metaform | Sandbox</Navbar.Brand>

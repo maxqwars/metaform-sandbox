@@ -1,8 +1,12 @@
 import { Accordion } from "react-bootstrap";
 
-function ErrorsAccordion({ bsColorScheme = "light" }) {
+// eslint-disable-next-line react/prop-types
+function ErrorsAccordion({ darkTheme }) {
+
+  const theme = darkTheme ? "dark" : "light";
+
   return (
-    <Accordion variant={bsColorScheme}>
+    <Accordion variant={theme} bg="theme">
       <Accordion.Item eventKey="0">
         <Accordion.Header>TIMEOUT_ERR</Accordion.Header>
         <Accordion.Body>
