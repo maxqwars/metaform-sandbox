@@ -19,6 +19,7 @@ import locale from "react-json-editor-ajrm/locale/en";
 import prefersColorSchemeIsDark from "./functions/prefersColorSchemeIsDark";
 
 const core = new SandboxCore();
+const bsColorScheme = prefersColorSchemeIsDark() ? "dark" : "light";
 
 function Loader() {
   return (
@@ -81,7 +82,7 @@ function App() {
   return (
     <>
       {/* Navabar */}
-      <SandboxNavbar />
+      <SandboxNavbar bsColorScheme={bsColorScheme} />
 
       {/* API selector */}
       <div className="my-2">
