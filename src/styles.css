@@ -1,0 +1,8 @@
+@import "bootstrap/dist/css/bootstrap.min.css";
+
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: #333333;
+    color: #ffffff;
+  }
+}

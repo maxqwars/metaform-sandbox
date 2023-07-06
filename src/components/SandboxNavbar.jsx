@@ -1,8 +1,13 @@
 import { Navbar, Container } from "react-bootstrap";
 
-function SandboxNavbar() {
+function SandboxNavbar({ bsColorScheme = "light" }) {
   return (
-    <Navbar bg="light" data-bs-theme="dark" className="border-bottom">
+    <Navbar
+      bg={bsColorScheme}
+      className="border-bottom"
+      data-bs-theme={bsColorScheme}
+      variant={bsColorScheme}
+    >
       <Container>
         <Navbar.Brand href="#home">Metaform | Sandbox</Navbar.Brand>
         <Navbar.Toggle />
